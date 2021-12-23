@@ -1,82 +1,97 @@
-import Head from 'next/head'
+import Link from "next/link";
+import Image from "next/image";
+import Layout from "../components/Layout";
+import SEO from "../components/Seo";
+import Pagination from "../components/Pagination";
+import BreadCrumbs from "../components/BreadCrumbs";
 
-export default function Home() {
+const PER_PAGE = 5;
+
+const Blog = ({ blog, totalCount }) => {
+  // console.log(blog);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout>
+      <SEO title="ブログ" description="これはブログページです" />
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className="font-zen">
+        <div>
+          <Image
+            src="/woman-top.jpg"
+            alt="topImage"
+            layout="responsive"
+            width={1280}
+            height={500}
+            objectFit="cover"
+            quality={90}
+          />
         </div>
-      </main>
+        <BreadCrumbs
+          lists={[
+            {
+              string: "トップページ",
+              path: "/",
+            },
+            {
+              string: blog.title,
+            },
+          ]}
+        />
+        <div className="p-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
+          {" "}
+          {blog.map((blog) => (
+            <div key={blog.id}>
+              {/* ブログごとのリンクもmap関数の中に入れる(なぜなら配列だから) */}
+              <Link href={`/blog/${blog.id}`}>
+                <a>
+                  <div className="max-w-sm rounded mx-3 overflow-hidden shadow-lg">
+                    <img
+                      className="w-full"
+                      src={`${blog.ogimage.url}?fit=crop&w=200&h=200`}
+                      alt=""
+                    />
+                    <div className="px-6 py-4">
+                      <div className="font-bold text-xl mb-2">{blog.title}</div>
+                      <p className="text-gray-700 text-base">
+                        {blog.description}
+                      </p>
+                    </div>
+                    <div className="px-6 pt-4 pb-2">
+                      <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                        #photography
+                      </span>
+                      <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                        #travel
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Pagination totalCount={totalCount} />
+    </Layout>
+  );
+};
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
+export default Blog;
+
+export const getStaticProps = async () => {
+  const key = {
+    headers: { "X-MICROCMS-API-KEY": process.env.API_KEY },
+  };
+  const data = await fetch(
+    "https://aka2ki.microcms.io/api/v1/blog?offset=0&limit=4",
+    key
   )
-}
+    .then((res) => res.json())
+    .catch(() => null);
+
+  return {
+    props: {
+      blog: data.contents,
+      totalCount: data.totalCount,
+    },
+  };
+};
