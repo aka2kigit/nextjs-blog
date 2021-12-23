@@ -4,6 +4,7 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   usePageView();
+
   return (
     <>
       <GoogleAnalytics />
