@@ -1,5 +1,4 @@
 //components/Pagination.js
-import Router from "next/router";
 import Link from "next/link";
 
 const Pagination = ({ totalCount }) => {
