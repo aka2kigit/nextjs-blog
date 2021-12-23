@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <GoogleAnalytics />
+
       <Component {...pageProps} />
     </>
   );
