@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 import { client } from "../../libs/client";
 import useSWR from "swr";
@@ -24,27 +23,29 @@ const SingleBlog = ({ blog }) => {
   }
 
   return (
-    <Layout>
-      <SEO title={blog.title} description={blog.excerpt} />
-      <BreadCrumbs
-        lists={[
-          {
-            string: "トップページ",
-            path: "/",
-          },
-          {
-            string: blog.title,
-          },
-        ]}
-      />
-      <div className="h-screen">
-        <h1 className="text-center mt-6">{blog.title}</h1>
-        <div
-          className="mx-8 mt-4"
-          dangerouslySetInnerHTML={{ __html: `${blog.body}` }}
-        ></div>
+    <>
+      <div className="min-h-screen">
+        <SEO title={blog.title} description={blog.excerpt} />
+        <BreadCrumbs
+          lists={[
+            {
+              string: "トップページ",
+              path: "/",
+            },
+            {
+              string: blog.title,
+            },
+          ]}
+        />
+        <div className="">
+          <h1 className="text-center mt-6">{blog.title}</h1>
+          <div
+            className="mx-8 mt-4"
+            dangerouslySetInnerHTML={{ __html: `${blog.body}` }}
+          ></div>
+        </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 const Pagination = ({ totalCount }) => {
-  const PER_PAGE = 5;
+  const PER_PAGE = 4;
 
   // 配列を作成し、return内でstartとendを与えmapで展開している。
   const range = (start, end) =>

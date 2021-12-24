@@ -5,15 +5,15 @@ import SEO from "../components/Seo";
 import Pagination from "../components/Pagination";
 import BreadCrumbs from "../components/BreadCrumbs";
 
-const PER_PAGE = 5;
+const PER_PAGE = 4;
 
 const Blog = ({ blog, totalCount }) => {
   // console.log(blog);
   return (
-    <Layout>
+    <>
       <SEO title="ブログ" description="これはブログページです" />
 
-      <div className="font-zen">
+      <div>
         <div>
           <Image
             src="/woman-top.jpg"
@@ -36,7 +36,7 @@ const Blog = ({ blog, totalCount }) => {
             },
           ]}
         />
-        <div className="p-10  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
+        <div className="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-5">
           {" "}
           {blog.map((blog) => (
             <div key={blog.id}>
@@ -46,10 +46,10 @@ const Blog = ({ blog, totalCount }) => {
                   <div className="max-w-sm rounded mx-3 overflow-hidden shadow-lg">
                     <img
                       className="w-full"
-                      src={`${blog.ogimage.url}?fit=crop&w=200&h=200`}
+                      src={`${blog.ogimage.url}?fit=crop&w=300&h=200`}
                       alt=""
                     />
-                    <div className="px-6 py-4">
+                    <div className="px-6 py-4 overflow-hidden">
                       <div className="font-bold text-xl mb-2">{blog.title}</div>
                       <p className="text-gray-700 text-base">
                         {blog.description}
@@ -57,11 +57,11 @@ const Blog = ({ blog, totalCount }) => {
                     </div>
                     <div className="px-6 pt-4 pb-2">
                       <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                        #photography
+                        {blog.category.name}
                       </span>
-                      <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                         #travel
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </a>
@@ -71,7 +71,7 @@ const Blog = ({ blog, totalCount }) => {
         </div>
       </div>
       <Pagination totalCount={totalCount} />
-    </Layout>
+    </>
   );
 };
 

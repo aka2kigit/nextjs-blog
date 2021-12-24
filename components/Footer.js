@@ -6,7 +6,7 @@ import { MdOutlineArticle } from "react-icons/md";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-gray-400">
+      <footer className="bg-gray-400 bottom-0">
         <div className="flex items-center justify-center text-center pt-16 pb-8">
           <p className="my-0 mx-12 hover:opacity-80">
             <Link href="/">
