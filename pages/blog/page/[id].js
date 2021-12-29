@@ -13,9 +13,10 @@ const apiUrl = `https://aka2ki.microcms.io/api/v1/blog/`;
 
 // pages/blog/[id].js
 export default function BlogPageId({ blog, totalCount }) {
-  const { data: tasks, mutate } = useSWR(apiUrl, fetcher, {
+  const { data, mutate } = useSWR(apiUrl, fetcher, {
     fallbackData: blog,
   });
+
   useEffect(() => {
     mutate();
   }, []);

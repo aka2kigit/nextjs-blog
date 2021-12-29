@@ -4,12 +4,13 @@ import SEO from "../../components/Seo";
 import { client } from "../../libs/client";
 import useSWR from "swr";
 import BreadCrumbs from "../../components/BreadCrumbs";
+import cheerio from "cheerio";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const apiUrl = `https://aka2ki.microcms.io/api/v1/blog/`;
 
 const SingleBlog = ({ blog }) => {
-  const { data: tasks, mutate } = useSWR(apiUrl, fetcher, {
+  const { data, mutate } = useSWR(apiUrl, fetcher, {
     fallbackData: blog,
   });
   useEffect(() => {
@@ -22,22 +23,51 @@ const SingleBlog = ({ blog }) => {
     return <div>Loading...</div>;
   }
 
+  ////////////////////////////////////
+  const $ = cheerio.load(blog.body);
+  const toc = $("h1, h2, h3")
+    .toArray()
+    .map((data) => ({
+      text: data.children[0].data,
+      id: data.attribs.id,
+      name: data.name,
+    }));
+
   return (
     <>
+      <BreadCrumbs
+        lists={[
+          {
+            string: "トップページ",
+            path: "/",
+          },
+          {
+            string: blog.title,
+          },
+        ]}
+      />
+      <div className="text-center mt-2 text-gray-600">
+        {toc.length ? (
+          <div id="">
+            <h4 className="text-lg">------目次------</h4>
+            <ul id="">
+              {toc.map((toc, index) => {
+                return (
+                  <li className={"list " + toc.name} key={toc.id}>
+                    <a href={"#" + toc.id}>{toc.text}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <div className="min-h-screen">
         <SEO title={blog.title} description={blog.excerpt} />
-        <BreadCrumbs
-          lists={[
-            {
-              string: "トップページ",
-              path: "/",
-            },
-            {
-              string: blog.title,
-            },
-          ]}
-        />
-        <div className="">
+
+        <div className="md:ml-36 md:mr-36 mb-8">
           <h1 className="text-center mt-6">{blog.title}</h1>
           <div
             className="mx-8 mt-4"

@@ -1,18 +1,35 @@
 import Link from "next/link";
 import Image from "next/image";
-import Layout from "../components/Layout";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import SEO from "../components/Seo";
 import Pagination from "../components/Pagination";
 import BreadCrumbs from "../components/BreadCrumbs";
+import useSWR from "swr";
 
 const PER_PAGE = 4;
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const apiUrl = `https://aka2ki.microcms.io/api/v1/blog/`;
+
 const Blog = ({ blog, totalCount }) => {
   // console.log(blog);
+  const { data, mutate } = useSWR(apiUrl, fetcher, {
+    fallbackData: blog,
+  });
+
+  useEffect(() => {
+    mutate();
+  }, []);
+
+  const router = useRouter();
+
+  if (router.isFallback || !blog) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <SEO title="ブログ" description="これはブログページです" />
-
       <div>
         <div>
           <Image

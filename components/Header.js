@@ -9,7 +9,7 @@ const Header = () => {
           <div className="container flex flex-row items-center h-16">
             <Link href="/">
               <a className="font-medium ml-2 mt-1">
-                <Image src="/testicon.jpg" alt="logo" width={50} height={50} />
+                <Image src="/icon.png" alt="logo" width={50} height={50} />
               </a>
             </Link>
             <ul>
