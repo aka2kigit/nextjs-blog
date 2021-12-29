@@ -32,7 +32,7 @@ const Blog = ({ blog, totalCount }) => {
   }
   return (
     <>
-      <SEO title="ブログ" description="これはブログページです" />
+      <SEO title="ブログ" description="これはブログページです。" />
       <div>
         <div>
           <Image
