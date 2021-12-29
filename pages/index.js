@@ -94,6 +94,29 @@ const Blog = ({ blog, totalCount }) => {
 
 export default Blog;
 
+// 動的なページを作成
+export const getStaticPaths = async () => {
+  const key = {
+    headers: { "X-MICROCMS-API-KEY": process.env.API_KEY },
+  };
+
+  const res = await fetch("https://aka2ki.microcms.io/api/v1/blog", key);
+
+  const repos = await res.json();
+
+  const pageNumbers = [];
+
+  const range = (start, end) =>
+    [...Array(end - start + 1)].map((_, i) => start + i);
+
+  const paths = range(1, Math.ceil(repos.totalCount / PER_PAGE)).map(
+    (repo) => `/blog/page/${repo}`
+  );
+
+  return { paths, fallback: true };
+};
+/////////////////////////////////////////////////
+
 export const getStaticProps = async () => {
   const key = {
     headers: { "X-MICROCMS-API-KEY": process.env.API_KEY },
