@@ -11,10 +11,13 @@ const PER_PAGE = 4;
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const apiUrl = `https://aka2ki.microcms.io/api/v1/blog/`;
+const key = {
+  headers: { "X-MICROCMS-API-KEY": process.env.API_KEY },
+};
 
 const Blog = ({ blog, totalCount }) => {
   // console.log(blog);
-  const { data, mutate } = useSWR(apiUrl, fetcher, {
+  const { data, mutate } = useSWR(apiUrl, key, fetcher, {
     fallbackData: blog,
   });
 

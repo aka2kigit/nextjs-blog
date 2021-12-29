@@ -9,11 +9,14 @@ import useSWR from "swr";
 const PER_PAGE = 4;
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
+const key = {
+  headers: { "X-MICROCMS-API-KEY": process.env.API_KEY },
+};
 const apiUrl = `https://aka2ki.microcms.io/api/v1/blog/`;
 
 // pages/blog/[id].js
 export default function BlogPageId({ blog, totalCount }) {
-  const { data, mutate } = useSWR(apiUrl, fetcher, {
+  const { data, mutate } = useSWR(apiUrl, key, fetcher, {
     fallbackData: blog,
   });
 
