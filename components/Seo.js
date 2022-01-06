@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 
 const SEO = ({ title, description }) => {
   const router = useRouter();
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "https://wadaino.site";
   const currentUrl = baseUrl + router.pathname;
   const defaultImage = `${baseUrl}/images/social-card.png`;
   return (
