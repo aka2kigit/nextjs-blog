@@ -71,7 +71,7 @@ const SingleBlog = ({ blog }) => {
         <SEO title={blog.title} description={blog.excerpt} />
 
         <div className="md:ml-36 md:mr-36 mb-8">
-          <h1 className="text-center mt-6">{blog.title}</h1>
+          <h1 className="text-center mt-6 mb-6 underline">{blog.title}</h1>
           <div
             className="mx-8 mt-4"
             dangerouslySetInnerHTML={{ __html: `${blog.body}` }}
