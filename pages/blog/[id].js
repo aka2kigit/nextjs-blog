@@ -27,14 +27,14 @@ const SingleBlog = ({ blog }) => {
   }
 
   ////////////////////////////////////
-  const $ = cheerio.load(blog.body);
-  const toc = $("h1, h2, h3")
-    .toArray()
-    .map((data) => ({
-      text: data.children[0].data,
-      id: data.attribs.id,
-      name: data.name,
-    }));
+  // const $ = cheerio.load(blog.content.map);
+  // const toc = $("h1, h2, h3")
+  //   .toArray()
+  //   .map((data) => ({
+  //     text: data.children[0].data,
+  //     id: data.attribs.id,
+  //     name: data.name,
+  //   }));
 
   return (
     <>
@@ -49,7 +49,7 @@ const SingleBlog = ({ blog }) => {
           },
         ]}
       />
-      <div className="text-center mt-2 text-gray-600">
+      {/* <div className="text-center mt-2 text-gray-600">
         {toc.length ? (
           <div id="">
             <h4 className="text-lg">------目次------</h4>
@@ -66,16 +66,19 @@ const SingleBlog = ({ blog }) => {
         ) : (
           ""
         )}
-      </div>
+      </div> */}
       <div className="min-h-screen">
         <SEO title={blog.title} description={blog.excerpt} />
 
         <div className="md:ml-36 md:mr-36 mb-8">
           <h1 className="text-center mt-6 mb-6 underline">{blog.title}</h1>
-          <div
-            className="mx-8 mt-4"
-            dangerouslySetInnerHTML={{ __html: `${blog.body}` }}
-          ></div>
+          {blog.content.map((feature, index) => (
+            <li key={index} className="list-none">
+              <div
+                dangerouslySetInnerHTML={{ __html: `${feature.body}` }}
+              ></div>
+            </li>
+          ))}
         </div>
       </div>
     </>
@@ -98,6 +101,12 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const id = context.params.id;
   const data = await client.get({ endpoint: "blog", contentId: id });
+  // const post = await client.get({
+  //   endpoint: "blog",
+  //   queries: {
+  //     fields: "body",
+  //   },
+  // });
 
   return {
     props: {

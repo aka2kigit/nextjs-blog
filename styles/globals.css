@@ -5,16 +5,23 @@
 @layer base {
   body {
     @apply font-serif;
+    @apply text-lg;
   }
   h1 {
     @apply text-2xl;
   }
   h2 {
     @apply text-xl;
-    @apply px-4 py-4;
+    @apply px-2 py-2 mx-6 my-6;
     @apply border-l-8;
     @apply border-solid;
     @apply bg-red-100;
+  }
+  h3 {
+    @apply text-lg;
+    @apply px-2 py-2 mx-6 my-6;
+    @apply border-t-4;
+    @apply border-b-4;
   }
   /* @font-face {
     font-family: "Zen-Antique";

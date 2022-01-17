@@ -6,33 +6,33 @@ import { MdOutlineArticle } from "react-icons/md";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-gray-400 bottom-0">
+      <footer className="bg-or-pink bottom-0">
         <div className="flex items-center justify-center text-center pt-16 pb-8">
           <p className="my-0 mx-12 hover:opacity-80">
             <Link href="/">
-              <AiOutlineHome size="3rem" color="white" />
+              <AiOutlineHome size="3rem" color="#030049" />
             </Link>
           </p>
 
           <p className="my-0 mx-12 hover:opacity-80">
             <Link href="contact">
-              <BsMailbox size="3rem" color="white" />
+              <BsMailbox size="3rem" color="#030049" />
             </Link>
           </p>
           <p className="my-0 mx-12 hover:opacity-80">
             <Link href="/blog">
-              <MdOutlineArticle size="3rem" color="white" />
+              <MdOutlineArticle size="3rem" color="#030049" />
             </Link>
           </p>
         </div>
         <div className="flex items-center justify-center text-center">
           <Link href="/privacyPolicy">
-            <a className="my-0 mx-12 hover:opacity-80 text-white">
+            <a className="my-0 mx-12 hover:opacity-80 text-or-blue">
               プライバシーポリシー
             </a>
           </Link>
           <Link href="/sitePolicy">
-            <a className="my-0 mx-12 hover:opacity-80 text-white">
+            <a className="my-0 mx-12 hover:opacity-80 text-or-blue">
               サイトポリシー
             </a>
           </Link>
@@ -44,8 +44,8 @@ const Footer = () => {
         </div>
         <hr className="my-8 border-x-2 mx-48" />
         <div className="flex items-center justify-center text-center">
-          <p className="text-xl text-white">
-            ©{new Date().getFullYear()}Site Name
+          <p className="text-xl text-or-blue">
+            ©{new Date().getFullYear()}Wadaino
           </p>
         </div>
       </footer>
