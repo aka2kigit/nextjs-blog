@@ -23,14 +23,4 @@
     @apply border-t-4;
     @apply border-b-4;
   }
-  /* @font-face {
-    font-family: "Zen-Antique";
-    font-weight: 400;
-    src: url(https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Zen+Antique&display=swap);
-  }
-  @font-face {
-    font-family: Proxima Nova;
-    font-weight: 500;
-    src: url(/fonts/proxima-nova/500-medium.woff) format("woff");
-  } */
 }

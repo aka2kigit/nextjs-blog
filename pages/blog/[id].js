@@ -70,15 +70,56 @@ const SingleBlog = ({ blog }) => {
       <div className="min-h-screen">
         <SEO title={blog.title} description={blog.excerpt} />
 
-        <div className="md:ml-36 md:mr-36 mb-8">
-          <h1 className="text-center mt-6 mb-6 underline">{blog.title}</h1>
+        <div className="md:ml-36 md:mr-36 mb-8 ml-4 mr-4">
+          {/* <h1 className="text-center mt-6 mb-6 underline">{blog.title}</h1>
           {blog.content.map((feature, index) => (
             <li key={index} className="list-none">
               <div
                 dangerouslySetInnerHTML={{ __html: `${feature.body}` }}
               ></div>
             </li>
-          ))}
+          ))} */}
+          <div>
+            <h1 className="text-center mt-6 mb-6 underline">{blog.title}</h1>
+            {blog.content.map((customField) => {
+              switch (customField.fieldId) {
+                case "contents":
+                  return (
+                    <div
+                      className="mb-4"
+                      key={customField.fieldId}
+                      dangerouslySetInnerHTML={{
+                        __html: customField.body,
+                      }}
+                    />
+                  );
+                case "balloon":
+                  const image = customField.image;
+                  return (
+                    <div
+                      key={customField.fieldId}
+                      className={customField.direction}
+                    >
+                      <figure className="relative">
+                        <img
+                          className="rounded-full border-2"
+                          src={image.url}
+                          alt=""
+                          width={image.width}
+                          height={image.height}
+                        />
+                        <figcaption className="text-center text-sm">
+                          {customField.name}
+                        </figcaption>
+                      </figure>
+                      <p className="mx-5 px-6 relative bg-pink-50 border border-gray-300 p-4 rounded-xl">
+                        {customField.text}
+                      </p>
+                    </div>
+                  );
+              }
+            })}
+          </div>
         </div>
       </div>
     </>
