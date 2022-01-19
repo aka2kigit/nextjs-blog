@@ -7,6 +7,9 @@
     @apply font-serif;
     @apply text-lg;
   }
+  p {
+    @apply px-6;
+  }
   h1 {
     @apply text-2xl;
   }
