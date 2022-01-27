@@ -26,4 +26,7 @@
     @apply border-t-4;
     @apply border-b-4;
   }
+  .flex {
+    @apply my-3;
+  }
 }
